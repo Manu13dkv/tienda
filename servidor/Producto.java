@@ -1,6 +1,6 @@
 import java.rmi.*;
 
-public interface Producto extends Remote {
+interface Producto extends Remote {
 
     public int getId() throws RemoteException;
     public String getCodigoReferencia() throws RemoteException;

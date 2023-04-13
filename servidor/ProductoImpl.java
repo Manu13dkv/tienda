@@ -1,11 +1,8 @@
-package servidor;
-
 import java.rmi.*;
 import java.rmi.server.*;
 
-import cliente.Producto;
 
-public class ProductoImpl extends UnicastRemoteObject implements Producto {
+class ProductoImpl extends UnicastRemoteObject implements Producto {
     
     private int id;
     private String codigo_referencia;

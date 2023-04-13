@@ -1,8 +1,7 @@
 import java.rmi.*;
 import java.util.*;
 
-
-public interface Almacen extends Remote {
+interface Almacen extends Remote {
     
     public int insertarProducto(
         

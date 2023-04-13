@@ -1,19 +1,15 @@
-package servidor;
-
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.security.Identity;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import cliente.Almacen;
-import cliente.Producto;
 
-public class AlmacenImpl implements Almacen {
+class AlmacenImpl extends UnicastRemoteObject implements Almacen {
+
+	AlmacenImpl() throws RemoteException{
+	}
 
 	private int obtenerCantidad(int id){
 
