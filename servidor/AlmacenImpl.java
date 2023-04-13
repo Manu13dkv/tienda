@@ -1,4 +1,4 @@
-package tienda;
+package servidor;
 
 import java.rmi.RemoteException;
 import java.security.Identity;
@@ -10,8 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlmacenImpl implements Almacen {
+import cliente.Almacen;
+import cliente.Producto;
 
+public class AlmacenImpl implements Almacen {
 
 	private int obtenerCantidad(int id){
 
@@ -46,12 +48,12 @@ public class AlmacenImpl implements Almacen {
 		} catch (SQLException e) {
 
 			System.out.println("Excepcion SQL Exception: " + e.getMessage());
-			System.out.println("El producto no ha podido insertarse en la BBDD.");
+			System.out.println("No ha podido obtenerse la cantidad de este producto");
 			e.printStackTrace();
 		
 		} catch (ClassNotFoundException e) {
 
-			System.out.println("El producto no ha podido insertarse en la BBDD.");
+			System.out.println("No ha podido obtenerse la cantidad de este producto");
 			e.printStackTrace();
 		}
 
@@ -95,22 +97,29 @@ public class AlmacenImpl implements Almacen {
 			statement.close();
 			conn.close();
 		
-	} catch (SQLException e) {
+		} catch (SQLException e) {
 
-        System.out.println("Excepcion SQL Exception: " + e.getMessage());
-		System.out.println("El producto no ha podido insertarse en la BBDD.");
-        e.printStackTrace();
-    
-	} catch (ClassNotFoundException e) {
+			System.out.println("Excepcion SQL Exception: " + e.getMessage());
+			System.out.println("El producto no ha podido insertarse en la BBDD.");
+			e.printStackTrace();
+			return -1;
+		
+		} catch (ClassNotFoundException e) {
 
-		System.out.println("El producto no ha podido insertarse en la BBDD.");
-        e.printStackTrace();
-    }
+			System.out.println("El producto no ha podido insertarse en la BBDD.");
+			e.printStackTrace();
+			return -1;
+		}
+
+		return 0;
+
+	}
 
 
-	public void comprar(int id, int cantidad) throws RemoteException{
+	public int comprar(int id, int cantidad) throws RemoteException{
 		
 		int nueva_cantidad = 0;
+		int exito = -1;
 
 		try {
 			
@@ -128,7 +137,7 @@ public class AlmacenImpl implements Almacen {
 			String consultabd = 
 				"UPDATE inventario" +
 				"SET cantidad=?" +
-				"WHERE codigo_barras=?";
+				"WHERE codigo_referencia=?";
 
 			PreparedStatement statement = conn.prepareStatement(consultabd);
 
@@ -144,6 +153,9 @@ public class AlmacenImpl implements Almacen {
 			rs.close();
 			statement.close();
 			conn.close();
+
+			exito = 0;
+			return exito;
         
 		} catch (SQLException e) {
         	System.out.println("Excepcion SQL Exception: " + e.getMessage());
@@ -154,6 +166,7 @@ public class AlmacenImpl implements Almacen {
 			System.out.println("La compra no ha sido realizada con exito.");
         	e.printStackTrace();
 		}
+		return exito;
     }
 
 
@@ -185,7 +198,7 @@ public class AlmacenImpl implements Almacen {
 				productos.add(
 					new ProductoImpl(
 						rs.getInt("id"),
-						rs.getString("codigo_barras"),
+						rs.getString("codigo_referencia"),
 						rs.getString("marca"),
 						rs.getString("talla"),
 						rs.getString("color"),

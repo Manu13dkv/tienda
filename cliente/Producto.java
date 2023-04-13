@@ -1,8 +1,8 @@
-package tienda;
+package cliente;
 
 import java.rmi.*;
 
-interface Producto extends Remote {
+public interface Producto extends Remote {
 
     public int getId() throws RemoteException;
     public String getCodigoReferencia() throws RemoteException;

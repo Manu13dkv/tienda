@@ -1,4 +1,4 @@
-package tienda;
+package servidor;
 
 import java.rmi.*;
 import java.rmi.server.*;
@@ -6,7 +6,7 @@ import java.rmi.server.*;
 class ServidorAlmacen {
     static public void main(String args[]) {
         if (args.length != 1) {
-            System.err.println("Uso: ServidorProducto numPuertoRegistro");
+            System.err.println("Uso: ServidorAlmacen numPuertoRegistro");
             return;
         }
         if (System.getSecurityManager() == null) {

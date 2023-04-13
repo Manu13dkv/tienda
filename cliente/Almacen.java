@@ -1,9 +1,10 @@
-package tienda;
+package cliente;
 
 import java.rmi.*;
 import java.util.*;
 
-interface Almacen extends Remote {
+
+public interface Almacen extends Remote {
     
     public int insertarProducto(
         
@@ -18,7 +19,7 @@ interface Almacen extends Remote {
         
     ) throws RemoteException;
 
-    public void comprar(int id, int cantidad) throws RemoteException;
+    public int comprar(int id, int cantidad) throws RemoteException;
 
     public List<Producto> obtenerProductosPorTipo( String tipo) throws RemoteException;
 

@@ -1,9 +1,11 @@
-package tienda;
+package servidor;
 
 import java.rmi.*;
 import java.rmi.server.*;
 
-class ProductoImpl extends UnicastRemoteObject implements Producto {
+import cliente.Producto;
+
+public class ProductoImpl extends UnicastRemoteObject implements Producto {
     
     private int id;
     private String codigo_referencia;
@@ -14,10 +16,10 @@ class ProductoImpl extends UnicastRemoteObject implements Producto {
     private String modelo;
     private int cantidad;
 
-    ProductoImpl() throws RemoteException {
+    public ProductoImpl() throws RemoteException {
     }
 
-    ProductoImpl(
+    public ProductoImpl(
         int id, String codigo_referencia, 
         String marca, String talla, String color, 
         String tipo, String modelo, int cantidad 
